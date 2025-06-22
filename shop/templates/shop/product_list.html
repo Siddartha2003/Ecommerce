@@ -1,0 +1,36 @@
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}! <a href="/users/logout/">Logout</a></p>
+{% else %}
+    <p><a href="/users/login/">Login</a> | <a href="/users/signup/">Sign Up</a></p>
+{% endif %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shop</title>
+    <style>
+        .product-card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 10px;
+            width: 200px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'cart' %}">🛒 View Cart</a>
+
+    <h1>Products</h1>
+
+    {% for product in products %}
+        <div class="product-card">
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.description }}</p>
+            <strong>Price: ₹{{ product.price }}</strong>
+            <a href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
+        </div>
+    {% endfor %}
+</body>
+</html>
